@@ -1,0 +1,89 @@
+//Estructura definitiva base de un parámetro tipo Filter para Eventos
+==========
+
+[{
+	"lc": "",
+	"ele": [{
+		"field": "fecha_hora",
+		"operator": ">=",
+		"value": "2017-09-01 00:00:00"
+	}, {
+		"field": "fecha_hora",
+		"operator": "<",
+		"value": "2017-09-01 23:59:59",
+		"lc": "and"
+	}]
+}, {
+	"lc": "&&",
+	"ele": [{
+		"field": "idcanal",
+		"operator": "=",
+		"value": "380"
+	}]
+}]
+
+
+[{"lc":"","ele":[{"field": "fecha_hora","operator": ">=","value": "2017-09-01 00:00:00"}, {"field": "fecha_hora","operator": "<","value": "2017-09-01 23:59:59","lc" : "and"}]},{"lc": "&&","ele":[{"field": "idcanal","operator": "=","value": "380"}]}]
+
+
+%5B%7B%22lc%22%3A%22%22%2C%22ele%22%3A%5B%7B%22field%22%3A+%22fecha_hora%22%2C%22operator%22%3A+%22%3E%3D%22%2C%22value%22%3A+%222017-09-01+00%3A00%3A00%22%7D%2C+%7B%22field%22%3A+%22fecha_hora%22%2C%22operator%22%3A+%22%3C%22%2C%22value%22%3A+%222017-09-01+23%3A59%3A59%22%2C%22lc%22+%3A+%22and%22%7D%5D%7D%2C%7B%22lc%22%3A+%22%26%26%22%2C%22ele%22%3A%5B%7B%22field%22%3A+%22idcanal%22%2C%22operator%22%3A+%22%3D%22%2C%22value%22%3A+%22380%22%7D%5D%7D%5D
+
+
+%5B%7B%22lc%22%3A%22%22%2C%22ele%22%3A%5B%7B%22field%22%3A+%22fecha_hora%22%2C%22operator%22%3A+%22%3E%3D%22%2C%22value%22%3A+%222017-11-23+01%3A29%3A24%22%7D%2C+%7B%22field%22%3A+%22fecha_hora%22%2C%22operator%22%3A+%22%3C%22%2C%22value%22%3A+%222017-11-22+21%3A29%3A24%22%2C%22lc%22+%3A+%22and%22%7D%5D%7D%2C%7B%22lc%22%3A+%22%26%26%22%2C%22ele%22%3A%5B%7B%22field%22%3A+%22idcanal%22%2C%22operator%22%3A+%22%3D%22%2C%22value%22%3A+%22579%22%7D%5D%7D%5D
+
+
+
+
+//Estructura definitiva base de un parámetro tipo Filter para Canales
+==========
+
+[
+	{
+		"lc":"",
+		"ele":[
+			{
+				"field":"nombre",
+				"operator":"like",
+				"value":"%TELE%"
+			}
+		]
+	}
+]
+
+
+
+[{"lc":"","ele":[{"field":"nombre","operator":"like","value":"%TELE%"}]}]
+
+
+%5B%7B%22lc%22%3A%22%22%2C%22ele%22%3A%5B%7B%22field%22%3A%22nombre%22%2C%22operator%22%3A%22like%22%2C%22value%22%3A%22%25TELE%25%22%7D%5D%7D%5D
+
+
+
+
+//Estructura definitiva base de un parámetro tipo Filter para Eventos
+============
+
+[{
+	"lc": "",
+	"ele": [{
+		"field": "begin",
+		"operator": ">=",
+		"value": "2017-09-01 00:00:00"
+	}, {
+		"field": "begin",
+		"operator": "<",
+		"value": "2017-09-01 23:59:59",
+		"lc": "and"
+	}]
+}, {
+	"lc": "&&",
+	"ele": [{
+		"field": "chn",
+		"operator": "=",
+		"value": "380"
+	}]
+}]
+
+
+
+[{"lc": "","ele": [{"field": "begin","operator": ">=","value": "2017-11-24 17:19:00"}, {"field": "begin","operator": "<","value": "2017-11-24 21:19:00","lc": "and"}]}, {"lc": "&&","ele": [{"field": "channel","operator": "=","value": "380"}]}]

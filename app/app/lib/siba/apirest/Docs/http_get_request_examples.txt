@@ -1,0 +1,135 @@
+//Estructura definitiva base de un parámetro tipo Filter
+
+Abreviations:
+
+lc: Logic Connector // Conector lógico
+ele: Elements // Elementos
+
+[
+    {
+        "lc"  : "",
+        "ele" :
+        [{
+            "field": "year",
+            "operator": ">=",
+            "value": 2013
+        }, {
+            "field": "year",
+            "operator": "<=",
+            "value": 2017,
+            "lc" : "and"
+        }]
+    },
+    {
+        "lc"  : "or",
+        "ele"  :
+        [{
+            "field": "marca",
+            "operator": "==",
+            "value": "bmw",
+        }]
+    },
+    {
+        "lc"  : "or",
+        "ele"  :
+        [{
+            "field": "year",
+            "operator": ">=",
+            "value": 2013
+        }, {
+            "field": "year",
+            "operator": "<=",
+            "value": 2017,
+            "lc" : "and"
+        }, {
+            "field": "year",
+            "operator": "<=",
+            "value": 2017,
+            "lc" : "and"
+        }, {
+            "field": "year",
+            "operator": "<=",
+            "value": 2017,
+            "lc" : "and"
+        }]
+    },
+    {
+        "lc"  : "and",
+        "ele"  :
+        [{
+            "field": "marca",
+            "operator": "==",
+            "value": "bmw",
+        }]
+    }
+]
+
+
+//La anterior estructura mapea a un string que se puede usar como un elemento tipo "where" en una sentencia SQL:
+
+( 
+    ( 
+        ( year >= '2013'  )  and  
+        ( year <= '2017'  )  
+    )  
+    or  
+    ( 
+        ( marca == 'bmw'  )  
+    )  
+    or  
+    ( 
+        ( year >= '2013'  )  and  
+        ( year <= '2017'  )  and  
+        ( year <= '2017'  )  and  
+        ( year <= '2017'  )  
+    )  
+    and  
+    ( 
+        ( marca == 'bmw'  )  
+    ) 
+)
+
+
+
+//======================================================================
+
+[
+    {
+        "lc"  : "",
+        "ele" :
+        [{
+            "field": "fecha_hora",
+            "operator": ">=",
+            "value": "2017-09-01 00:00:00"
+        }, {
+            "field": "fecha_hora",
+            "operator": "<",
+            "value": "2017-09-01 23:59:59",
+            "lc" : "and"
+        }]
+    },
+    {
+        "lc"  : "&&",
+        "ele"  :
+        [{
+            "field": "idcanal",
+            "operator": "=",
+            "value": "380"
+        }]
+    }
+]
+
+
+//======================================================================
+
+Ejemplos de peticiones:
+
+GET http://api.siba.com.co/events/?filters=ew0KCVsNCgkJew0KCQkJZmllbGQ6IGHDsW8sDQoJCQlvcGVyYXRvcjogPj0sDQoJCQl2YWx1ZTogMjAxMw0KCQl9LA0KCQl7DQoJCQlmaWVsZDogYcOxbywNCgkJCW9wZXJhdG9yOiA8PSwNCgkJCXZhbHVlOiAyMDE3LA0KCQkJY29ubmVjdG9yOiAnYW5kJw0KCQl9LA0KCV0sDQoJew0KCQlmaWVsZDogbWFyY2EsDQoJCW9wZXJhdG9yOiAnPT0nLA0KCQl2YWx1ZTogJ2JtdycsDQoJCWNvbm5lY3RvcjogJ2FuZCcNCgl9LA0KCVsNCgkJew0KCQkJZmllbGQ6IGHDsW8sDQoJCQlvcGVyYXRvcjogPj0sDQoJCQl2YWx1ZTogMjAxMw0KCQl9LA0KCQl7DQoJCQlmaWVsZDogYcOxbywNCgkJCW9wZXJhdG9yOiA8PSwNCgkJCXZhbHVlOiAyMDE3LA0KCQkJY29ubmVjdG9yOiAnYW5kJw0KCQl9LA0KCQl7DQoJCQlmaWVsZDogYcOxbywNCgkJCW9wZXJhdG9yOiA8PSwNCgkJCXZhbHVlOiAyMDE3LA0KCQkJY29ubmVjdG9yOiAnYW5kJw0KCQl9LA0KCQl7DQoJCQlmaWVsZDogYcOxbywNCgkJCW9wZXJhdG9yOiA8PSwNCgkJCXZhbHVlOiAyMDE3LA0KCQkJY29ubmVjdG9yOiAnYW5kJw0KCQl9LA0KCV0sDQoJew0KCQlmaWVsZDogbWFyY2EsDQoJCW9wZXJhdG9yOiAnPT0nLA0KCQl2YWx1ZTogJ2JtdycsDQoJCWNvbm5lY3RvcjogJ2FuZCcNCgl9LA0KfQ==&limit=1,50&fields=nombre,sinopsis&token=ew0KCVsNCgkJew0KCQkJZmllbGQ6IGHDsW8sDQoJCQlvcGVyYXRvcjogPj0sDQoJCQl2Y&var1=ew0KCVsNCgkJew0KCQkJZmllbGQ6IGHDsW8sDQoJCQlvcGVyYXRvcjogPj0sDQoJCQl2Y&var2=ew0KCVsNCgkJew0KCQkJZmllbGQ6IGHDsW8sDQoJCQlvcGVyYXRvcjogPj0sDQoJCQl2Y
+
+
+Campo Filter:
+%5B%5B%7B%22field%22%3A+%22year%22%2C%22operator%22%3A+%22%3E%3D%22%2C%22value%22%3A+2013%7D%2C%7B%22field%22%3A+%22year%22%2C%22operator%22%3A+%22%3C%3D%22%2C%22value%22%3A+2017%2C%22connector%22%3A+%22and%22%7D%5D%2C%5B%7B+%22field%22%3A+%22marca%22%2C%22operator%22%3A+%22%3D%3D%22%2C%22value%22%3A+%22bmw%22%2C%22connector%22%3A+%22and%22%7D%5D%2C%5B%7B%22field%22%3A+%22year%22%2C%22operator%22%3A+%22%3E%3D%22%2C%22value%22%3A+2013%7D%2C%7B%22field%22%3A+%22year%22%2C%22operator%22%3A+%22%3C%3D%22%2C%22value%22%3A+2017%2C%22connector%22%3A+%22and%22%7D%2C%7B%22field%22%3A+%22year%22%2C%22operator%22%3A+%22%3C%3D%22%2C%22value%22%3A+2017%2C%22connector%22%3A+%22and%22%7D%2C%7B%22field%22%3A+%22year%22%2C%22operator%22%3A+%22%3C%3D%22%2C%22value%22%3A+2017%2C%22connector%22%3A+%22and%22%7D%5D%2C%5B%7B%22field%22%3A+%22marca%22%2C%22operator%22%3A+%22%3D%3D%22%2C%22value%22%3A+%22bmw%22%2C%22connector%22%3A+%22and%22%7D%5D%5D
+
+
+GET http://api.siba.com.co/events/?filters=%5B%5B%7Bfield%3A+%27year%27%2Coperator%3A+%27%3E%3D%27%2Cvalue%3A+2013%7D%2C%7Bfield%3A+%27year%27%2Coperator%3A+%27%3C%3D%27%2Cvalue%3A+2017%2Cconnector%3A+%27and%27%7D%2C%5D%2C%7Bfield%3A+%27marca%27%2Coperator%3A+%27%3D%3D%27%2Cvalue%3A+%27bmw%27%2Cconnector%3A+%27and%27%7D%2C%5B%7Bfield%3A+%27year%27%2Coperator%3A+%27%3E%3D%27%2Cvalue%3A+2013%7D%2C%7Bfield%3A+%27year%27%2Coperator%3A+%27%3C%3D%27%2Cvalue%3A+2017%2Cconnector%3A+%27and%27%7D%2C%7Bfield%3A+%27year%27%2Coperator%3A+%27%3C%3D%27%2Cvalue%3A+2017%2Cconnector%3A+%27and%27%7D%2C%7Bfield%3A+%27year%27%2Coperator%3A+%27%3C%3D%27%2Cvalue%3A+2017%2Cconnector%3A+%27and%27%7D%2C%5D%2C%7Bfield%3A+%27marca%27%2Coperator%3A+%27%3D%3D%27%2Cvalue%3A+%27bmw%27%2Cconnector%3A+%27and%27%7D%2C%5D&limit=1,50&fields=nombre,sinopsis&token=ew0KCVsNCgkJew0KCQkJZmllbGQ6IGHDsW8sDQoJCQlvcGVyYXRvcjogPj0sDQoJCQl2Y&var1=ew0KCVsNCgkJew0KCQkJZmllbGQ6IGHDsW8sDQoJCQlvcGVyYXRvcjogPj0sDQoJCQl2Y&var2=ew0KCVsNCgkJew0KCQkJZmllbGQ6IGHDsW8sDQoJCQlvcGVyYXRvcjogPj0sDQoJCQl2Y
+
