@@ -23,7 +23,7 @@ class TextFileHttpPostUploaderHandler {
     * @param \Symfony\Component\HttpFoundation\File\UploadedFile, El archivo subido vía HTTP POST
     * @param \Siba\txtvalidator\classes\TextFileNameFromContentDiscoverer, deductor del nombre del archivo a partir del contenido
     * 
-    * @return \Symfony\Component\HttpFoundation\File\File, apuntador al archivo ya copiado
+    * @return String, path al archivo ya copiado.
     *
     */
 

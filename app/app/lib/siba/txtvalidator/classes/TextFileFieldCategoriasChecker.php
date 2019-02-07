@@ -12,7 +12,7 @@ namespace Siba\txtvalidator\classes;
  * @author @maomuriel
  * mauricio.muriel@calitek.net
  */
-class TextFileFieldCategoriasChecker implements \Siba\loadstd\interfaces\FileDataFieldChecker {
+class TextFileFieldCategoriasChecker implements \Siba\txtvalidator\interfaces\FileDataFieldChecker {
     //put your code here
     private $return;
     private $categorias = array('Accion',

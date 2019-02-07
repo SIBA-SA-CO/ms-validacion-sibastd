@@ -13,7 +13,7 @@ class TextFileFieldActoresCheckerTest extends \TestCase {
 	 */
 	public function testCheckFieldActoresCheckerOk()
 	{
-		$actoresChecker = new \Siba\loadstd\classes\TextFileFieldActoresChecker();
+		$actoresChecker = new \Siba\txtvalidator\classes\TextFileFieldActoresChecker();
 		$field="Claudia Gurisati||Jeisson Calderón||Carlos Sanabria||Carolina Hernández";
 		$res = $actoresChecker->checkFieldIntegrity($field);
 		$this->assertSame(true,$res->status);
@@ -22,7 +22,7 @@ class TextFileFieldActoresCheckerTest extends \TestCase {
 
 	public function testCheckFieldActoresChecker2Ok()
 	{
-		$actoresChecker = new \Siba\loadstd\classes\TextFileFieldActoresChecker();
+		$actoresChecker = new \Siba\txtvalidator\classes\TextFileFieldActoresChecker();
 		$field="Claudia Gurisati||Jeisson Calderón|co|m||Carlos Sanabria||Carolina Hernández";
 		$res = $actoresChecker->checkFieldIntegrity($field);
 		$this->assertSame(true,$res->status);
@@ -30,7 +30,7 @@ class TextFileFieldActoresCheckerTest extends \TestCase {
 
 	public function testCheckFieldActoresCheckerError()
 	{
-		$actoresChecker = new \Siba\loadstd\classes\TextFileFieldActoresChecker();
+		$actoresChecker = new \Siba\txtvalidator\classes\TextFileFieldActoresChecker();
 		$field="ep|14803";//Campo errado, se intenta simular el campo "Opcionales"
 		$res = $actoresChecker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);
@@ -40,7 +40,7 @@ class TextFileFieldActoresCheckerTest extends \TestCase {
 
 
 		
-		$actoresChecker = new \Siba\loadstd\classes\TextFileFieldActoresChecker();
+		$actoresChecker = new \Siba\txtvalidator\classes\TextFileFieldActoresChecker();
 		$field="Emile Hirsch||Susan Sarandon||Melissa Holroyd||Matthew Fox||Christina Ricci|";//Campo errado, se intenta simular el campo "Opcionales"
 		$res = $actoresChecker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);
@@ -50,7 +50,7 @@ class TextFileFieldActoresCheckerTest extends \TestCase {
 
 	public function testBasicDirectorNameOK(){
 		
-		$actoresChecker = new \Siba\loadstd\classes\TextFileFieldActoresChecker();
+		$actoresChecker = new \Siba\txtvalidator\classes\TextFileFieldActoresChecker();
 		$field="Emile Hirsch";//Campo errado, se intenta simular el campo "Opcionales"
 		$res = $actoresChecker->checkFieldIntegrity($field);
 		$this->assertSame(true,$res->status);

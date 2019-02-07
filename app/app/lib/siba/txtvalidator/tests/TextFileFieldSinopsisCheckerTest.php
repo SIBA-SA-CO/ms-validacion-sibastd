@@ -13,7 +13,7 @@ class TextFileFieldSinopsisCheckerTest extends TestCase {
 	 */
 	public function testCheckFieldSinopsisCheckerOk()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldSinopsisChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldSinopsisChecker();
 		$field="Para dar a conocer diferentes temas relacionados con el esoterismo, manejo de las energías, el mundo astral y consejos para que los televidentes puedan afrontar sus problemas de la vid";
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(true,$res->status);
@@ -21,7 +21,7 @@ class TextFileFieldSinopsisCheckerTest extends TestCase {
 
 	public function testCheckFieldSinopsisCheckerError()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldSinopsisChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldSinopsisChecker();
 		$field="UNITED STATES|TV-14";//
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);

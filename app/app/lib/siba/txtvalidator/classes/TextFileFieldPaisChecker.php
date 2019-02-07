@@ -12,7 +12,7 @@ namespace Siba\txtvalidator\classes;
  * @author @maomuriel
  * mauricio.muriel@calitek.net
  */
-class TextFileFieldPaisChecker implements \Siba\loadstd\interfaces\FileDataFieldChecker {
+class TextFileFieldPaisChecker implements \Siba\txtvalidator\interfaces\FileDataFieldChecker {
     //put your code here
     private $return;
 

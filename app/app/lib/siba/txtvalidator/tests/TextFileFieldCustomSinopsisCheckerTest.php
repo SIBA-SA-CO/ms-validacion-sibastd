@@ -13,7 +13,7 @@ class TextFileFieldCustomSinopsisCheckerTest extends TestCase {
 	 */
 	public function testCheckFieldCustomSinopsisCheckerOk()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldCustomSinopsisChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldCustomSinopsisChecker();
 		$field="SIN_CTI|Canal RCN";
 		$field="SIN_CTI|Cada día, cinco emisiones en directo con el mayor cubrimiento en los sucesos nacionales e internacionales. Enviados especiales, entrevistas, opinión, debate y análisis con los protagonistas de la realidad";
 		$res = $checker->checkFieldIntegrity($field);
@@ -23,7 +23,7 @@ class TextFileFieldCustomSinopsisCheckerTest extends TestCase {
 
 	public function testCheckFieldCustomSinopsisCheckerError()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldCustomSinopsisChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldCustomSinopsisChecker();
 		$field="SIN_CTI_NNNNN|Programacion Canal RCN";
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);
@@ -33,7 +33,7 @@ class TextFileFieldCustomSinopsisCheckerTest extends TestCase {
 
 	public function testCheckFieldCustomSinopsisNoPipesCharsThere()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldCustomSinopsisChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldCustomSinopsisChecker();
 		$field="México al Día es un noticiario que brinda información oportuna, clara y veraz de los sucesos y acontecimientos que están transformando a nuestro país. Su compromiso es ofrecer al auditorio un recuento diario de los avances y logros de México y su gente, presentando secciones de información internacional, deportes, cultura y espectáculos, entre otros.";
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);

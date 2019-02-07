@@ -1,5 +1,8 @@
 <?php
 
+use \Siba\txtvalidator\classes\TextFileNameFromContentDiscoverer;
+use \Siba\txtvalidator\classes\TextFileHttpPostUploaderHandler;
+
 class LoadValidatorApi extends BaseController {
 
 	/*
@@ -17,9 +20,18 @@ class LoadValidatorApi extends BaseController {
 
 	public function index(){
 
+		//1. Gestiona el archivo cargado
+		$uploadedTxtFile = Input::file('archivo');
+		$uploaderHandler = new TextFileHttpPostUploaderHandler();
+		$fileNameDiscover = new TextFileNameFromContentDiscoverer();
+		$newFilePath = $uploaderHandler->onUploadedHttpPostFile($uploadedTxtFile,$fileNameDiscover);
 
-		$archivo = Input::file('archivo');
-		print_r($archivo);
+		//2. Procesa el archivo (verifica el archivo)
+		
+		//2.1. Se verifica primero la estructura
+		
+		
+		
 
 		return "Hola Mundo...";
 		

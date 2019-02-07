@@ -13,7 +13,7 @@ class TextFileFieldRatingCheckerTest extends TestCase {
 	 */
 	public function testCheckFieldRatingCheckerOk()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldRatingChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldRatingChecker();
 		$field="USA|TV-14";
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(true,$res->status);
@@ -21,16 +21,15 @@ class TextFileFieldRatingCheckerTest extends TestCase {
 
 	public function testCheckFieldRatingCheckerError()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldRatingChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldRatingChecker();
 		$field="UNITED STATES|TV-14";//
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);
 	}
 
-
 	public function testCheckFieldRatingCheckerErrorBadRating()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldRatingChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldRatingChecker();
 		$field="USA|TV HD-PG";//
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);

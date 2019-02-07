@@ -13,7 +13,7 @@ class TextFileFieldSerieMarkCheckerTest extends TestCase {
 	 */
 	public function testCheckFieldSerieMarkCheckerOk()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldSerieMarkChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldSerieMarkChecker();
 		$field="LA NOCHE";
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(true,$res->status);
@@ -21,7 +21,7 @@ class TextFileFieldSerieMarkCheckerTest extends TestCase {
 
 	public function testCheckFieldSerieMarkCheckerError()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldSerieMarkChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldSerieMarkChecker();
 		$field="UNITED STATES|TV-14";//
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);

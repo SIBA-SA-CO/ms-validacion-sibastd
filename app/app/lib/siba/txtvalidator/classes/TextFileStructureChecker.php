@@ -122,8 +122,6 @@ class TextFileStructureChecker {
 
     }
 
-
-
     private function validateNoDateJump($actualDate){
 
         if (preg_match("/^[0-9]{4,4}\-[0-9]{2,2}\-[0-9]{2,2}/",$actualDate)){
@@ -141,11 +139,8 @@ class TextFileStructureChecker {
                 return new \Misc\Response('1','',true);
             }
             else{
-
                 return new \Misc\Response('24','Existe un salto en la definición de la fecha o es una fecha en el pasado',false);
-                
             }
-
         }
         else{
             return new \Misc\Response('23','El formato de fecha no es válido',false);

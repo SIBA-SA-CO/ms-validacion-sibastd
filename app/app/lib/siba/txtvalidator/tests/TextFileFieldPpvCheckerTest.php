@@ -13,7 +13,7 @@ class TextFileFieldPpvCheckerTest extends TestCase {
 	 */
 	public function testCheckFieldPpvCheckerOk()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldPpvChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldPpvChecker();
 		$field="eventprices|6900|";
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(true,$res->status);
@@ -21,7 +21,7 @@ class TextFileFieldPpvCheckerTest extends TestCase {
 
 	public function testCheckFieldPpvCheckerError()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldPpvChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldPpvChecker();
 		$field="eventprices69000";//
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);

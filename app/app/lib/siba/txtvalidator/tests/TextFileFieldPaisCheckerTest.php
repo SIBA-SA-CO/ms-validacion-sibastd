@@ -13,7 +13,7 @@ class TextFileFieldPaisCheckerTest extends TestCase {
 	 */
 	public function testCheckFieldPaisCheckerOk()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldPaisChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldPaisChecker();
 		$field="USA";
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(true,$res->status);
@@ -21,7 +21,7 @@ class TextFileFieldPaisCheckerTest extends TestCase {
 
 	public function testCheckFieldPaisCheckerError()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldPaisChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldPaisChecker();
 		$field="Colombia";//
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);

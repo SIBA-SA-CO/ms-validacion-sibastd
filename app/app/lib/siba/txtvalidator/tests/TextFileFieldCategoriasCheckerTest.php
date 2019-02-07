@@ -13,7 +13,7 @@ class TextFileFieldCategoriasCheckerTest extends TestCase {
 	 */
 	public function testCheckFieldCategoriasCheckerOk()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldCategoriasChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldCategoriasChecker();
 		$field="SIBA_TIPO|SERIE||SIBA_BASE|Periodismo";
 		$field="SIBA_TIPO|SERIE||SIBA_BASE|Telenovela";
 		$field="SIBA_TIPO|SERIE||SIBA_BASE|Naturaleza";
@@ -24,7 +24,7 @@ class TextFileFieldCategoriasCheckerTest extends TestCase {
 
 	public function testCheckFieldCategoriasCheckerError()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldCategoriasChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldCategoriasChecker();
 		$field="SIBA_TIPO|SERIE||SIBA_BASE|Paragliding";
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);
@@ -32,7 +32,7 @@ class TextFileFieldCategoriasCheckerTest extends TestCase {
 
 	public function testCheckFieldCategoriasCheckerTipoValidatorOk()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldCategoriasChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldCategoriasChecker();
 		$field="SIBA_TIPO|SERIE||SIBA_BASE|Paragliding";
 		$res = $checker->checkTipoEvento($field);
 		$this->assertSame(true,$res);
@@ -40,7 +40,7 @@ class TextFileFieldCategoriasCheckerTest extends TestCase {
 
 	public function testCheckFieldCategoriasCheckerTipoValidatorError()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldCategoriasChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldCategoriasChecker();
 		$field="SIBA_TIPO|SE||SIBA_BASE|Paragliding";
 		$res = $checker->checkTipoEvento($field);
 		$this->assertSame(false,$res);
@@ -48,7 +48,7 @@ class TextFileFieldCategoriasCheckerTest extends TestCase {
 
 	public function testCheckFieldCategoriasCheckerGeneroValidatorOk()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldCategoriasChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldCategoriasChecker();
 		$field="SIBA_TIPO|SERIE||SIBA_BASE|Erotico";
 		$res = $checker->checkGenero($field);
 		$this->assertSame(true,$res['res']);
@@ -56,7 +56,7 @@ class TextFileFieldCategoriasCheckerTest extends TestCase {
 
 	public function testCheckFieldCategoriasCheckerGeneroValidatorError()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldCategoriasChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldCategoriasChecker();
 		$field="SIBA_TIPO|SE||SIBA_BASE|Paragliding";
 		$res = $checker->checkGenero($field);
 		$this->assertSame(false,$res['res']);
@@ -65,7 +65,7 @@ class TextFileFieldCategoriasCheckerTest extends TestCase {
 
 	public function testCheckEmptyField(){
 
-		$checker = new \Siba\loadstd\classes\TextFileFieldCategoriasChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldCategoriasChecker();
 		$field=" ";
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);

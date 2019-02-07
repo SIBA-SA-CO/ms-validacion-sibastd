@@ -13,7 +13,7 @@ class TextFileFieldDirectoresCheckerTest extends TestCase {
 	 */
 	public function testCheckFieldDirectoresCheckerOk()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldDirectoresChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldDirectoresChecker();
 		$field="Claudia Gurisati||Jeisson Calderón||Carlos Sanabria||Carolina Hernández";
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(true,$res->status);
@@ -22,7 +22,7 @@ class TextFileFieldDirectoresCheckerTest extends TestCase {
 
 	public function testCheckFieldDirectoresCheckerError()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldDirectoresChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldDirectoresChecker();
 		$field="SIN_CTI_NNNNN|Programacion Canal RCN";
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);

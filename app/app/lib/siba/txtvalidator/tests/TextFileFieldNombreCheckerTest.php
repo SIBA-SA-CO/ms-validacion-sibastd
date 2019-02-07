@@ -13,7 +13,7 @@ class TextFileFieldNombreCheckerTest extends TestCase {
 	 */
 	public function testCheckFieldNombreCheckerOk()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldNombreChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
 		$field="Contacto Astral";
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(true,$res->status);
@@ -21,7 +21,7 @@ class TextFileFieldNombreCheckerTest extends TestCase {
 
 	public function testCheckFieldNombreCheckerError()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldNombreChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
 		$field="Contacto A stral C  l C Contacto Astral C CofghfgCo ntacto Ast ral C Cont acto Astrantacto Astral C mmmmmmmmm ";//Campo errado, se intenta simular el campo "Opcionales"
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);

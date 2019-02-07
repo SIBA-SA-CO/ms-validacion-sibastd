@@ -13,7 +13,7 @@ class TextFileFieldTemporadaCheckerTest extends TestCase {
 	 */
 	public function testCheckFieldTemporadaCheckerOk()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldTemporadaChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldTemporadaChecker();
 		$field="2";
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(true,$res->status);
@@ -21,7 +21,7 @@ class TextFileFieldTemporadaCheckerTest extends TestCase {
 
 	public function testCheckFieldTemporadaCheckerError()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldTemporadaChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldTemporadaChecker();
 		$field="2014";//
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);

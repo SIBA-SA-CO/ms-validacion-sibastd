@@ -21,31 +21,22 @@ class TextFileRecord  {
     private $date = '';
 
     public function __construct($str){
-
         $this->lineString = $str;
-
         if ($this->lineType()== 'data'){
             $this->loadData();
         }
-        
-
     }
 
     public function loadData(){
-
         $this->arrDataRaw = preg_split("/\-\-\-/",$this->lineString);
-
     }
 
     public function setDuracion($duracion){
-
         $this->duracion = $duracion;
     }
 
     public function getDuracion(){
-
         return $this->duracion;
-
     }
 
     public function lineType () {
@@ -63,26 +54,17 @@ class TextFileRecord  {
 
         }
         else if (preg_match("/(\-{3,3})/",$this->lineString)){
-
             return "data";
-
         }
         else {
-
             return 0;
-
         }
-
     }
 
     public function getLineTime(){
-
         if (preg_match("/^([0-9]{1,2}:[0-9]{2,2})/",$this->lineString,$res)){
-
             return $res[1];
-
         }
-
         return false;
     }
 
@@ -100,15 +82,12 @@ class TextFileRecord  {
     }   
 
     public function setDate($date){
-
         $this->date = $date;
     }
 
 
     public function getDate(){
-
         return $this->date;
-
     }
 
     public function getTimestampByLine ($date=null){
@@ -336,16 +315,15 @@ class TextFileRecord  {
             $arrActoresRaw = preg_split("/\|\|/",$this->arrDataRaw[11]);
             for ($j=0;$j<count($arrActoresRaw);$j++){
                 
-                echo $arrActoresRaw[$j]."\n";
-                echo "============================\n";
+                //echo $arrActoresRaw[$j]."\n";
+                //echo "============================\n";
                 if (preg_match("/\|/",$arrActoresRaw[$j])){
                     list($nombresAct,$paisAct,$sexoAct) = preg_split("/\|/",$arrActoresRaw[$j]);
                     if ($nombresAct != ''){
                         array_push($actores,array($nombresAct,$paisAct,$sexoAct));
                     }
                 }
-                else{
-                    
+                else{  
                     array_push($actores, $arrActoresRaw[$j]);
                 }
             }
@@ -354,7 +332,6 @@ class TextFileRecord  {
             array_push($actores,$this->arrDataRaw[11]);
         }
         return $actores;
-
     }
 
     /*
@@ -366,22 +343,14 @@ class TextFileRecord  {
         if ($this->lineType()!= 'data'){
             return null;
         }
-
         $directores = array();
-
         if ($this->arrDataRaw[12]==' '){
-
             return $directores;
-
         }
-
         
-        if (preg_match("/[a-zA-Z0-9\|]/",$this->arrDataRaw[12])){
-            
+        if (preg_match("/[a-zA-Z0-9\|]/",$this->arrDataRaw[12])){   
             $arrDirectoresRaw = preg_split("/\|\|/",$this->arrDataRaw[12]);
-
             for ($j=0;$j<count($arrDirectoresRaw);$j++){
-                
                 if (preg_match("/\|/",$arrDirectoresRaw[$j])){
                     list($nombresDir,$paisDir,$sexoDir) = preg_split("/\|/",$arrDirectoresRaw[$j]);
                     if ($nombresDir != ''){
@@ -389,11 +358,9 @@ class TextFileRecord  {
                     }
                 }
                 else{
-                    
                     array_push($directores, $arrDirectoresRaw[$j]);
                 }
             }
-            
         }
         else {
             array_push($directores,$this->arrDataRaw[12]);
@@ -429,5 +396,4 @@ class TextFileRecord  {
     public function getRawLine(){
         return $this->lineString;
     }
-
 }

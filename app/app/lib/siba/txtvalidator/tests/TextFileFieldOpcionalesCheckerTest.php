@@ -13,7 +13,7 @@ class TextFileFieldOpcionalesCheckerTest extends TestCase {
 	 */
 	public function testCheckFieldOpcionalesCheckerOk()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldOpcionalesChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldOpcionalesChecker();
 		$field="ep|14803";
 		$field="ep|8";
 		$res = $checker->checkFieldIntegrity($field);
@@ -22,7 +22,7 @@ class TextFileFieldOpcionalesCheckerTest extends TestCase {
 
 	public function testCheckFieldOpcionalesCheckerError()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldOpcionalesChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldOpcionalesChecker();
 		$field="ep14803";//
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);

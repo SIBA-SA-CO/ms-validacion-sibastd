@@ -13,7 +13,7 @@ class TextFileFieldYearCheckerTest extends TestCase {
 	 */
 	public function testCheckFieldYearCheckerOk()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldYearChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldYearChecker();
 		$field="2014";
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(true,$res->status);
@@ -21,7 +21,7 @@ class TextFileFieldYearCheckerTest extends TestCase {
 
 	public function testCheckFieldYearCheckerError()
 	{
-		$checker = new \Siba\loadstd\classes\TextFileFieldYearChecker();
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldYearChecker();
 		$field="14";//
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);

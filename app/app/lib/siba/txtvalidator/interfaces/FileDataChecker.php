@@ -13,9 +13,9 @@
 
 namespace Siba\txtvalidator\interfaces;
 
-interface FileDataFieldChecker {
+interface FileDataChecker {
     //put your code here
     
-    public function checkFieldIntegrity($field);
+    public function checkDataIntegrity($filePath);
     
 }
