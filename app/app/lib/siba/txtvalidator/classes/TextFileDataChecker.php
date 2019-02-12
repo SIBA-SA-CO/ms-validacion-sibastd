@@ -57,11 +57,9 @@ class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataCheck
         $ret->notes = array();
 
         if (file_exists($filePath)){
-            
             $arrDataFile = file($filePath);
             $ctrLines = 0;
             $actualDate = "";
-
             /*
             print_r($ret);
             print_r($arrDataFile);
@@ -69,10 +67,10 @@ class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataCheck
             */
             $totalFileLines = count($arrDataFile);
             for ($i=0;$i<$totalFileLines;$i++) {
+            //for ($i=0;$i<100;$i++) {
 
                 $line = trim($arrDataFile[$i]);
-                $lineObj = new \Siba\txtvalidator\classes\TextFileRecord(trim($line));
-
+                $lineObj = new \Siba\txtvalidator\classes\TextFileRecord($line);
                 if ($lineObj->lineType()=='date'){
 
                     if (isset($this->arrData[$line])){
@@ -89,7 +87,7 @@ class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataCheck
                     }
                     else {
 
-                        $this->arrData[trim($line)] = array();
+                        $this->arrData[$line] = array();
                         $actualDate = $line;
 
                     }
@@ -99,7 +97,6 @@ class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataCheck
 
                     $arrLineData = preg_split("/\-\-\-/",$line);
                     $horaLine = $lineObj->getLineTime();
-
                     //1. Primera revisión es de formato adecuado de hora
                     if ($horaLine == false){
 

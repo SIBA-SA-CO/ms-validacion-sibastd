@@ -11,10 +11,14 @@ class RatingRepo implements IBaseRepo{
 
 	//protected $apiUrl = 'https://apistd.siba.com.co/api/events';//Production
 	protected $apiUrl = '';//Dev
+	protected $db = '';
 
 
 	public function __construct (){
 		$this->apiUrl = \Config::get('sibastdtxtvalidador.WS_RATINGS');
+		/* Genera la base de datos solo una vez */
+		$data = (array) json_decode(Curl::urlGet($this->apiUrl.'?limit=150'));
+		$this->db = $data['ratings'];
 	}
 	
 	public function create($data){
@@ -24,43 +28,62 @@ class RatingRepo implements IBaseRepo{
 	}
 
 	public function get($id){
+		foreach ($this->db as $dbRating){
 
-		$data = (array) json_decode(Curl::urlGet($this->apiUrl.'/'.$id));
-		if (isset($data["code"]) && $data["code"] == '404'){
-			return null;
+			if ($dbRating['id'] == $id){
+				$ratingRaw = array(
+					'id' => $this->db[$i]->id,
+					'rating' => $this->db[$i]->rating,
+					'country' => $this->db[$i]->country,
+					'age' => $this->db[$i]->age,
+				);
+				$rating = $this->create($ratingRaw);
+				return $rating;
+			}
+
 		}
-		$rating = $this->create($data);
-		return $rating;
+		return null;
 	}
 
 	public function find($data){
 		$collection = Collection::make(array());
-		$reqQuery = '';
-		if (count($data)>0){
+		$totalQty = count($this->db);
+		for ($i=0; $i< $totalQty;$i++){
+
+			$isRating = false;
 			foreach ($data as $key=>$val){
-				$reqQuery .= $key."=".$val."&";
+				//$reqQuery .= $key."=".$val."&";
+				if (isset($this->db[$i]->$key) && $this->db[$i]->$key==$val){
+					$isRating = true;
+				}
+				else{
+					$isRating = false;
+					break;
+				}
 			}
-			$reqQuery = preg_replace("/&$/","",$reqQuery);
-		}
-		//clock()->startEvent('get-eventos-ws', "Llamando microservicio eventos");
-		//clock()->info("Eventos URL: ".$this->apiUrl.'?'.$reqQuery);
-		//echo $this->apiUrl.'?'.$reqQuery."\n";
-		$data = (array) json_decode(Curl::urlGet($this->apiUrl.'?'.$reqQuery));
-		//print_r($data);
-		//clock()->endEvent('get-eventos-ws');
-		if (isset($data['ratings']) && count($data['ratings']) > 0){
-			for ($i=0;$i<count($data['ratings']);$i++){
-				$evtRaw = (array) $data['ratings'][$i];
-				$rating = $this->create($evtRaw);
-				//print_r($rating);
+
+			if ($isRating){
+				$ratingRaw = array(
+					'id' => $this->db[$i]->id,
+					'rating' => $this->db[$i]->rating,
+					'country' => $this->db[$i]->country,
+					'age' => $this->db[$i]->age,
+				);
+				$rating = $this->create($ratingRaw);
 				$collection->add($rating);
 			}
 		}
+
 		return $collection;
 	}
 
 	public function save($rating){
 		return null;
+	}
+
+
+	private function serachFor($key,$val){
+
 	}
 
 }

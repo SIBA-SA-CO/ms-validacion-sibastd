@@ -14,37 +14,45 @@ use \Siba\txtvalidator\models\ratings\RatingRepo;
  * @author @maomuriel
  * mauricio.muriel@calitek.net
  */
-class TextFileFieldRatingChecker implements \Siba\txtvalidator\interfaces\FileDataFieldChecker {
+class TextFileFieldRatingChecker implements \Siba\txtvalidator\interfaces\FileDataFieldChecker {    
     //put your code here
+    private $ratingRepo;
+
+
+    public function __construct(){
+
+        $this->ratingRepo = new \Siba\txtvalidator\models\ratings\RatingRepo();        
+
+    }
+
+    /**
+    * For a integrity rating field check, the content must be this: COUNTRY|RATING
+    * for example: USA|TV-PG
+    * 
+    * @param (string) $field
+    *
+    * @return \Misc\Response $object.
+    *
+    */
     public function checkFieldIntegrity($field) {
         $return = new \Misc\Response();
-        $ratingRepo = new \Siba\txtvalidator\models\ratings\RatingRepo();
+        //$ratingRepo = new \Siba\txtvalidator\models\ratings\RatingRepo();
         if ($field==' '){
             return $this->return;
         }
         if (preg_match("/^(COL|USA|MEX)\|/i",$field)){
 
-            if (preg_match("%\|%", $field))
-            {
-                $jsonString = '[';
+            if (preg_match("%\|%", $field)){
+
                 $arrRating = preg_split("%\|\|%",$field);
+                $arrParamToFind = array();
                 for ($j=0;$j<count($arrRating);$j++){
                     $arrRatingFields = preg_split("%\|%",$arrRating[$j]);
-                    
-                    if ($j == 0){
-                        $jsonString .= '{"lc":"","ele":[{"field":"country","operator":"=","value":"'.$arrRatingFields[0].'"},{"field":"rating","operator":"=","value": "'.$arrRatingFields[1].'","lc":"and"}]}';
-                    }
-                    else{
-                        $jsonString .= '{"lc": "or","ele":[{"field": "country","operator": "=","value": "'.$arrRatingFields[0].'"},{"field": "rating","operator": "=","value": "'.$arrRatingFields[1].'","lc" : "and"}]}';
-                    }
-                    $jsonString .= ']';
-                    //echo "\n".$jsonString."\n";
-                    $jsonString = urlencode($jsonString);
-                    //echo "\n".$jsonString."\n";
-                    $findParams = array(
-                        'filter'=>$jsonString,
-                    );
-                    $rating = $ratingRepo->find($findParams)->first();
+                
+                    $arrParamToFind['country'] = $arrRatingFields[0];
+                    $arrParamToFind['rating'] = $arrRatingFields[1];
+
+                    $rating = $this->ratingRepo->find($arrParamToFind)->first();
                     if ($rating==null){
                         $return->status = false;
                         $return->value = 0;

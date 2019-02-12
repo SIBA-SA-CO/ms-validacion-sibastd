@@ -19,7 +19,7 @@ class TextFileFieldRatingCheckerTest extends TestCase {
 		$this->assertSame(true,$res->status);
 	}
 
-	public function testCheckFieldRatingCheckerError()
+	public function testCheckFieldRatingErrorBadCountry()
 	{
 		$checker = new \Siba\txtvalidator\classes\TextFileFieldRatingChecker();
 		$field="UNITED STATES|TV-14";//
@@ -27,7 +27,7 @@ class TextFileFieldRatingCheckerTest extends TestCase {
 		$this->assertSame(false,$res->status);
 	}
 
-	public function testCheckFieldRatingCheckerErrorBadRating()
+	public function testCheckFieldRatingErrorBadRating()
 	{
 		$checker = new \Siba\txtvalidator\classes\TextFileFieldRatingChecker();
 		$field="USA|TV HD-PG";//
