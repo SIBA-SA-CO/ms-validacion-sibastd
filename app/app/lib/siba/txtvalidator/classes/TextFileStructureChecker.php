@@ -57,7 +57,7 @@ class TextFileStructureChecker {
     
             $ret->status = false;
             $ret->value = 0;
-            $ret->notes = $ret->notes."El archivo ".$filePath." no existe\n";
+            $ret->notes = $ret->notes."El archivo ".$filePath." no existe";
 
         }
         

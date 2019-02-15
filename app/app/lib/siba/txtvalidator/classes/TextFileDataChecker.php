@@ -60,11 +60,7 @@ class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataCheck
             $arrDataFile = file($filePath);
             $ctrLines = 0;
             $actualDate = "";
-            /*
-            print_r($ret);
-            print_r($arrDataFile);
-            return $ret;
-            */
+            //==================================================================
             $totalFileLines = count($arrDataFile);
             for ($i=0;$i<$totalFileLines;$i++) {
             //for ($i=0;$i<100;$i++) {
@@ -297,9 +293,7 @@ class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataCheck
             $ret->status = false;
             $ret->value = 0;
             array_push($ret->notes,array(
-                            'linenumber' => ($ctrLines + 1), 
                             'desc' => "El archivo ".$filePath." no existe",
-                            'line' => $line
                         ));
             
         }

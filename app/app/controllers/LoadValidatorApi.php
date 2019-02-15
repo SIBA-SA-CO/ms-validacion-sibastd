@@ -1,8 +1,12 @@
 <?php
-
 use \Siba\txtvalidator\classes\TextFileNameFromContentDiscoverer;
 use \Siba\txtvalidator\classes\TextFileHttpPostUploaderHandler;
-
+/*
+	Importa las clases que hacen el trabajo de validación
+*/
+use \Siba\txtvalidator\classes\TextFileStructureChecker;
+use \Siba\txtvalidator\classes\TextFileDataChecker;
+use \Siba\txtvalidator\classes\TextFileChecker;
 class LoadValidatorApi extends BaseController {
 
 	/*
@@ -17,24 +21,46 @@ class LoadValidatorApi extends BaseController {
 	|	Route::get('/', 'HomeController@showWelcome');
 	|
 	*/
-
 	public function index(){
 
-		//1. Gestiona el archivo cargado
-		$uploadedTxtFile = Input::file('archivo');
-		$uploaderHandler = new TextFileHttpPostUploaderHandler();
-		$fileNameDiscover = new TextFileNameFromContentDiscoverer();
-		$newFilePath = $uploaderHandler->onUploadedHttpPostFile($uploadedTxtFile,$fileNameDiscover);
+		$fileChecker = new TextFileChecker();
+		$fileDataChecker = new TextFileDataChecker();		
+		$textFileStructureChecker = new TextFileStructureChecker();
 
-		//2. Procesa el archivo (verifica el archivo)
+		//Procesado los datos, si llegan como un archivo.
+		if (Input::hasFile('archivo')){
+			$uploadedTxtFile = Input::file('archivo');
+			$uploaderHandler = new TextFileHttpPostUploaderHandler();
+			$fileNameDiscover = new TextFileNameFromContentDiscoverer();
+			$newFilePath = $uploaderHandler->onUploadedHttpPostFile($uploadedTxtFile,$fileNameDiscover);
+			$fileCheckResult = $fileChecker->check($newFilePath,$fileDataChecker,$textFileStructureChecker);
+			//Borra el archivo temporal
+			unlink($newFilePath);
+			//Retorna la respuesta
+			return \Response::json($fileCheckResult);
+		}
 		
-		//2.1. Se verifica primero la estructura
-		
-		
-		
+		//Valida los datos llegados como un campo (fieldtext)
+		if (\Input::has('data') && \Input::get('data')!=''){
 
-		return "Hola Mundo...";
-		
+			$data = \Input::get('data');
+			$md5FileName = md5($data);
+			$md5FileName = $md5FileName.'.txt';
+			$fp = fopen( app_path().'/storage/uploadedtxtfiles/'.$md5FileName , 'w+');
+			fwrite ($fp ,$data);
+			fclose($fp);
+			$fileCheckResult = $fileChecker->check(app_path().'/storage/uploadedtxtfiles/'.$md5FileName,$fileDataChecker,$textFileStructureChecker);
+			//Borra el archivo temporal
+			unlink(app_path().'/storage/uploadedtxtfiles/'.$md5FileName);
+			//Retorna la respuesta
+			return \Response::json($fileCheckResult);
+		}
+
+		//If there is not any to process... Default error answer
+		$ret = new \Misc\Response();
+		$ret->status = false;
+		$ret->value = 404;
+		$ret->notes = 'No data to be processed';
+		return \Response::json($ret);	
 	}
-
 }

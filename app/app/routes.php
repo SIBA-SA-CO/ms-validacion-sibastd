@@ -11,8 +11,7 @@
 |
 */
 
-Route::get('/', function()
-{
+Route::get('/', function(){
 	//return View::make('hello');
 	return ('siba.com.co');
 });
@@ -21,3 +20,10 @@ Route::get('/', function()
 /* Rutas para gestionar el ENDPOINT para el webservice de validación */
 
 Route::post("/api/dataload/validate",array ('as' => 'loader', 'uses' => 'LoadValidatorApi@index'));
+
+/*
+Route::post("/api/dataload/validate",function(){
+	$data = \Input::get('data');
+	
+});
+*/

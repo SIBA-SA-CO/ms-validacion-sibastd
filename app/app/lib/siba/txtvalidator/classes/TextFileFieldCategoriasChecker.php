@@ -91,7 +91,6 @@ class TextFileFieldCategoriasChecker implements \Siba\txtvalidator\interfaces\Fi
         
         $this->return = new \Misc\Response();
 
-
         if (!preg_match("/\|/",$field)){
             $this->return->status = false;
             $this->return->value = 0;

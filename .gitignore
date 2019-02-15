@@ -2,3 +2,15 @@
 .phpintel/
 .phpintel/*
 
+app/bootstrap/compiled.php
+app/vendor
+app/composer.phar
+app/composer.lock
+app/.env.*.php
+app/.env.php
+app/.DS_Store
+app/Thumbs.db
+app/app/storage/uploadedtxtfiles/
+app/app/storage/uploadedtxtfiles/*
+
+
