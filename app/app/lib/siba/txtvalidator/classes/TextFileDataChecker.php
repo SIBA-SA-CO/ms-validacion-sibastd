@@ -23,6 +23,7 @@ class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataCheck
     private $actoresTest;
     private $directoresTest;
     private $opcionalesTest;
+    private $eventsTime = array();
 
     public function __construct(){
         
@@ -107,18 +108,36 @@ class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataCheck
                     }
                     //2. Segunda revisión es de horarios trocados, es decir registro de programas en horarios 
                     //   equivocados.
-                    $horario = $actualDate." ".$horaLine.":00";
+                    $horario = $actualDate." ".$horaLine.":00";  
+
+
+
+                    if ($this->checkAdjacentEventsTime($horario) == false){
+
+                        $ret->status = false;
+                        $ret->value = 0;
+                        array_push($ret->notes,array(
+                            'linenumber' => ($ctrLines + 1), 
+                            'desc' => 'El evento tiene horario repetido o es un horario menor (más temprano) respecto del evento anterior (evento anterior en la linea: '.($ctrLines).')',
+                            'line' => $line
+                        ));
+
+                    }
+
+
                     if ($this->checkCorrectTime($horario) == false){
 
                         $ret->status = false;
                         $ret->value = 0;
                         array_push($ret->notes,array(
                             'linenumber' => ($ctrLines + 1), 
-                            'desc' => 'El programa tiene horario repetido y/o se ha puesto un horario posterior antes de otro',
+                            'desc' => 'El evento tiene horario repetido respecto de otro evento o está definido en una fecha equivocada',
                             'line' => $line
                         ));
 
                     }
+                    array_push($this->arrData[$actualDate],strtotime($horario));
+                    array_push ($this->eventsTime,strtotime($horario));
                     //3. Valida correctitud de campos
                     $resNombre = $this->nombreTest->checkFieldIntegrity($arrLineData[1]);
                     $resSinopsis = $this->sinopsisTest->checkFieldIntegrity($arrLineData[2]);
@@ -306,13 +325,13 @@ class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataCheck
     */ 
     public function checkCorrectTime($dateTime){
 
-        $tmeStamp = strtotime($dateTime);
-        $date = date("Y-m-d",$tmeStamp);
+        $timeStamp = strtotime($dateTime);
+        $date = date("Y-m-d",$timeStamp);
         if (isset($this->arrData[$date])){
 
             foreach($this->arrData[$date] as $horario){
 
-                if ($horario >= $tmeStamp){
+                if ($horario == $timeStamp){
 
                     return false;
                 }
@@ -324,4 +343,18 @@ class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataCheck
             return false;
         }
     }
+
+
+    public function checkAdjacentEventsTime($dateTime){
+
+        $timeStamp = strtotime($dateTime);
+        $indexTimeStamps = count($this->eventsTime);
+        if ($indexTimeStamps > 0){
+            if ($this->eventsTime[($indexTimeStamps - 1)] >= $timeStamp ){
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

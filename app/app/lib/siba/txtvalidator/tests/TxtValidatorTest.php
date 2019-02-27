@@ -89,6 +89,18 @@ class TxtValidatorTest extends \TestCase {
 	}
 
 
+	public function testTextFileDataTestingWrongEventsTimeDefintion(){
+		$fileChecker = new TextFileChecker();
+		$fileDataChecker = new TextFileDataChecker();
+		$textFileStructureChecker = new TextFileStructureChecker();
+		$filePath = base_path().'/app/lib/siba/txtvalidator/tests/Docs/SONY ANDES COMPLETO-error2.TXT';
+		//echo $filePath."\n";
+		$fileCheckResult = $fileChecker->check($filePath,$fileDataChecker,$textFileStructureChecker);
+		$this->assertFalse($fileCheckResult->status);
+		$this->assertEquals(6,count($fileCheckResult->notes));
+	}
+
+
 	public function testTextFileFullTesting(){
 		$fileChecker = new TextFileChecker();
 		$fileDataChecker = new TextFileDataChecker();
