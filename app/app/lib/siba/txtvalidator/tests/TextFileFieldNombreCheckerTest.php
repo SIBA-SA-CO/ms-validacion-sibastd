@@ -105,15 +105,6 @@ class TextFileFieldNombreCheckerTest extends TestCase {
 		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
 	}
 
-	public function testCheckFieldNombreCheckerErrorBySpecialCharEuro()
-	{
-		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
-		$field="Contacto astral  Lobo € the music";//Campo errado, se intenta simular el campo "Opcionales"
-		$res = $checker->checkFieldIntegrity($field);
-		$this->assertSame(false,$res->status);
-		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
-	}
-
 
 	public function testCheckFieldNombreCheckerErrorBySpecialCharLeftDoubleQuotation()
 	{
