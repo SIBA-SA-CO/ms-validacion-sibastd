@@ -66,4 +66,13 @@ class TextFileFieldSinopsisCheckerTest extends TestCase {
 		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
 	}
 
+
+	public function testCheckFieldSinopsisCheckerOkWithTilde()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldSinopsisChecker();
+		$field=" que lo clásico";//Programa de VH1 que nos muestra  sigue estando de moda.
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(true,$res->status);
+	}
+
 }
