@@ -22,9 +22,109 @@ class TextFileFieldNombreCheckerTest extends TestCase {
 	public function testCheckFieldNombreCheckerError()
 	{
 		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
-		$field="Contacto A stral C  l C Contacto Astral C CofghfgCo ntacto Ast ral C Cont acto Astrantacto Astral C mmmmmmmmm ";//Campo errado, se intenta simular el campo "Opcionales"
+		$field="Contacto A stral C  l C Contacto Astral C CofghfgCo ntacto A mddfmf mdfmmf m dmsmm mfddf mddf df m dmfmf mdfm fmdf  st ral C Cont acto Astrantacto Astral C mmmmmmmmm ";//Campo errado, se intenta simular el campo "Opcionales"
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);
 	}
+
+
+
+	public function testCheckFieldNombreCheckerErrorByLong()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
+		$field="Contacto A stral C  l C Contacto Astral C Cofgh k kdkdkkdk k kdkdk fgCo ntkdkkfm kdkmkdmkm kmddacto Ast ral C Cont acto Astrantacto Astral C mmmmmmmmm ";//Campo errado, se intenta simular el campo "Opcionales"
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/(longitud permitida)/',$res->notes);
+	}
+
+
+
+	public function testCheckFieldNombreCheckerErrorBySpecialChars()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
+		$field="Contacto astral &";//Campo errado, se intenta simular el campo "Opcionales"
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/(caracteres no permitidos)/',$res->notes);
+	}
+
+
+	public function testCheckFieldNombreCheckerErrorBySpecialCharAmp()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
+		$field="Contacto astral &";//Campo errado, se intenta simular el campo "Opcionales"
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/(caracteres no permitidos)/',$res->notes);
+	}
+
+	public function testCheckFieldNombreCheckerErrorBySpecialCharComilla()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
+		$field="Contacto astral 'Lobo'";//Campo errado, se intenta simular el campo "Opcionales"
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/contiene caracteres/',$res->notes);
+	}
+
+
+	public function testCheckFieldNombreCheckerErrorBySpecialCharComillaYAmp()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
+		$field="Contacto astral 'Lobo' &  the music";//Campo errado, se intenta simular el campo "Opcionales"
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/contiene caracteres/',$res->notes);
+	}
+
+	public function testCheckFieldNombreCheckerErrorBySpecialCharLessThan()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
+		$field="Contacto astral <Lobo  the music";//Campo errado, se intenta simular el campo "Opcionales"
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/\('.chr(60).'\)/',$res->notes);//Validando que en la nota de error venga el caracter "<"
+	}
+
+	public function testCheckFieldNombreCheckerErrorBySpecialCharMoreThan()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
+		$field="Contacto astral >Lobo  the music";//Campo errado, se intenta simular el campo "Opcionales"
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/\(>\)/',$res->notes);
+	}
+
+	public function testCheckFieldNombreCheckerErrorBySpecialCharApostrofe()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
+		$field="Contacto astral 'Lobo  the music";//Campo errado, se intenta simular el campo "Opcionales"
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/\(\'\)/',$res->notes);
+	}
+
+	public function testCheckFieldNombreCheckerErrorBySpecialCharEuro()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
+		$field="Contacto astral  Lobo € the music";//Campo errado, se intenta simular el campo "Opcionales"
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/\([^a-zA-Z0-9\ \-_]\)/',$res->notes);
+	}
+
+
+	public function testCheckFieldNombreCheckerErrorBySpecialCharLeftDoubleQuotation()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
+		$field="Contacto astral  Lobo “ the music";//Campo errado, se intenta simular el campo "Opcionales"
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/\([^a-zA-Z0-9\ \-_]\)/',$res->notes);
+		//$this->assertRegExp('/\(“\)/',$res->notes);
+	}
+
+	
 
 }

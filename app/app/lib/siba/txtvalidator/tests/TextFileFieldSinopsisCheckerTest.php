@@ -19,7 +19,7 @@ class TextFileFieldSinopsisCheckerTest extends TestCase {
 		$this->assertSame(true,$res->status);
 	}
 
-	public function testCheckFieldSinopsisCheckerError()
+	public function testCheckFieldSinopsisCheckerErrorByPipe()
 	{
 		$checker = new \Siba\txtvalidator\classes\TextFileFieldSinopsisChecker();
 		$field="UNITED STATES|TV-14";//
@@ -28,5 +28,42 @@ class TextFileFieldSinopsisCheckerTest extends TestCase {
 	}
 
 
+	public function testCheckFieldSinopsisCheckerErrorByAmp()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldSinopsisChecker();
+		$field="Para dar a conocer diferentes temas relacionados con el esoterismo, manejo de las energías, el mundo astral y consejos para que los televidentes puedan afrontar sus problemas de la vida & muerte";//
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/\(&\)/',$res->notes);
+	}
+
+
+	public function testCheckFieldSinopsisCheckerErrorByLessThan()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldSinopsisChecker();
+		$field="Para dar a conocer diferentes temas relacionados con el esoterismo, manejo de las energías, el mundo astral y consejos para que los televidentes puedan afrontar sus problemas de la vida < muerte";//
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/\(<\)/',$res->notes);
+	}
+
+	public function testCheckFieldSinopsisCheckerErrorByMoreThan()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldSinopsisChecker();
+		$field="Para dar a conocer diferentes temas relacionados con el esoterismo, manejo de las energías, el mundo astral y consejos para que los televidentes puedan afrontar sus problemas de la vida > muerte";//
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/\(>\)/',$res->notes);
+	}
+
+
+	public function testCheckFieldSinopsisCheckerErrorByApostrofe()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldSinopsisChecker();
+		$field="Para dar a conocer diferentes temas relacionados con el esoterismo, manejo de las energías, el mundo astral y consejos para que los televidentes puedan afrontar sus problemas de la vida ' muerte";//
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/\(\'\)/',$res->notes);
+	}
 
 }

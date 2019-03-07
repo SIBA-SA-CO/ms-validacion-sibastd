@@ -15,6 +15,7 @@ namespace Siba\txtvalidator\classes;
 class TextFileFieldNombreChecker implements \Siba\txtvalidator\interfaces\FileDataFieldChecker {
     //put your code here
     private $return;
+    private $maxLong = 120;
 
     public function checkFieldIntegrity($field) {
         
@@ -31,12 +32,28 @@ class TextFileFieldNombreChecker implements \Siba\txtvalidator\interfaces\FileDa
             $this->return->notes = "El tipo de dato registrado en el campo Nombre está vacio: ".$field;
         }
 
-        
 
-        if (preg_match("/[\|;]/",$field) || strlen($field) > 90 ){
+        if (strlen($field) > $this->maxLong){
             $this->return->status = false;
             $this->return->value = 0;
-            $this->return->notes = "El tipo de dato registrado en el campo Nombre no es valido: ".$field;
+            $this->return->notes = "El tipo de dato registrado en el campo Nombre supera la longitud permitida de ".$this->maxLong;
+        }
+        
+
+
+
+        //if (preg_match('/(\||;|&|\"|\'){1,100}/',$field,$matches)){
+        if (preg_match('/([\|;&\"\'><'.chr(8).''.chr(9).''.chr(10).''.chr(13).''.chr(26).''.chr(128).''.chr(133).''.chr(147).''.chr(148).''.chr(150).''.chr(151).''.chr(156).''.chr(157).''.chr(161).''.chr(166).''.chr(171).''.chr(174).''.chr(187).''.chr(191).''.chr(226).']){1,100}/',$field,$matches)){
+
+            $this->return->status = false;
+            $this->return->value = 0;
+
+            array_shift($matches);
+            $caracteresNoPermitidos = implode(", ",$matches);
+
+            $caracteresNoPermitidos = $caracteresNoPermitidos;
+
+            $this->return->notes = "El tipo de dato registrado en el campo Nombre contiene caracteres no permitidos (".$caracteresNoPermitidos."): ".$field;
         }
 
         
