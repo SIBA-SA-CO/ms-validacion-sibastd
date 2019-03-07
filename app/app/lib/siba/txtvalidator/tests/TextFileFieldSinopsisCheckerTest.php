@@ -70,7 +70,7 @@ class TextFileFieldSinopsisCheckerTest extends TestCase {
 	public function testCheckFieldSinopsisCheckerOkWithTilde()
 	{
 		$checker = new \Siba\txtvalidator\classes\TextFileFieldSinopsisChecker();
-		$field=" que lo clásico";//Programa de VH1 que nos muestra  sigue estando de moda.
+		$field="El solitario cuidador de un zoológico (Kevin James) quiere abandonar su trabajo porque es incapaz de mantener una relación";//Programa de VH1 que nos muestra  sigue estando de moda.
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(true,$res->status);
 	}
