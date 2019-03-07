@@ -34,7 +34,7 @@ class TextFileFieldSinopsisCheckerTest extends TestCase {
 		$field="Para dar a conocer diferentes temas relacionados con el esoterismo, manejo de las energías, el mundo astral y consejos para que los televidentes puedan afrontar sus problemas de la vida & muerte";//
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);
-		$this->assertRegExp('/\(&\)/',$res->notes);
+		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
 	}
 
 
@@ -44,7 +44,7 @@ class TextFileFieldSinopsisCheckerTest extends TestCase {
 		$field="Para dar a conocer diferentes temas relacionados con el esoterismo, manejo de las energías, el mundo astral y consejos para que los televidentes puedan afrontar sus problemas de la vida < muerte";//
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);
-		$this->assertRegExp('/\(<\)/',$res->notes);
+		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
 	}
 
 	public function testCheckFieldSinopsisCheckerErrorByMoreThan()
@@ -53,7 +53,7 @@ class TextFileFieldSinopsisCheckerTest extends TestCase {
 		$field="Para dar a conocer diferentes temas relacionados con el esoterismo, manejo de las energías, el mundo astral y consejos para que los televidentes puedan afrontar sus problemas de la vida > muerte";//
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);
-		$this->assertRegExp('/\(>\)/',$res->notes);
+		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
 	}
 
 
@@ -63,7 +63,7 @@ class TextFileFieldSinopsisCheckerTest extends TestCase {
 		$field="Para dar a conocer diferentes temas relacionados con el esoterismo, manejo de las energías, el mundo astral y consejos para que los televidentes puedan afrontar sus problemas de la vida ' muerte";//
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);
-		$this->assertRegExp('/\(\'\)/',$res->notes);
+		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
 	}
 
 }

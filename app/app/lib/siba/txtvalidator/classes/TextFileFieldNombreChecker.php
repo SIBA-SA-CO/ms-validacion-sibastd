@@ -53,7 +53,7 @@ class TextFileFieldNombreChecker implements \Siba\txtvalidator\interfaces\FileDa
 
             $caracteresNoPermitidos = $caracteresNoPermitidos;
 
-            $this->return->notes = "El tipo de dato registrado en el campo Nombre contiene caracteres no permitidos (".$caracteresNoPermitidos."): ".$field;
+            $this->return->notes = "El tipo de dato registrado en el campo Nombre contiene caracteres no permitidos";
         }
 
         

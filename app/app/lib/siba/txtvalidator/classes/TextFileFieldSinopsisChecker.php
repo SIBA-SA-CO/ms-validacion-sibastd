@@ -31,7 +31,7 @@ class TextFileFieldSinopsisChecker implements \Siba\txtvalidator\interfaces\File
 
             $this->return->status = false;
             $this->return->value = 0;
-            $this->return->notes = "El tipo de dato registrado en el campo Sinopsis contiene caracteres no permitidos (".$caracteresNoPermitidos."): ".$field;
+            $this->return->notes = "El tipo de dato registrado en el campo Sinopsis contiene caracteres no permitidos: ";
             return $this->return;
 
         }

@@ -84,7 +84,7 @@ class TextFileFieldNombreCheckerTest extends TestCase {
 		$field="Contacto astral <Lobo  the music";//Campo errado, se intenta simular el campo "Opcionales"
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);
-		$this->assertRegExp('/\('.chr(60).'\)/',$res->notes);//Validando que en la nota de error venga el caracter "<"
+		$this->assertRegExp('/caracteres no permitidos/',$res->notes);//Validando que en la nota de error venga el caracter "<"
 	}
 
 	public function testCheckFieldNombreCheckerErrorBySpecialCharMoreThan()
@@ -93,7 +93,7 @@ class TextFileFieldNombreCheckerTest extends TestCase {
 		$field="Contacto astral >Lobo  the music";//Campo errado, se intenta simular el campo "Opcionales"
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);
-		$this->assertRegExp('/\(>\)/',$res->notes);
+		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
 	}
 
 	public function testCheckFieldNombreCheckerErrorBySpecialCharApostrofe()
@@ -102,7 +102,7 @@ class TextFileFieldNombreCheckerTest extends TestCase {
 		$field="Contacto astral 'Lobo  the music";//Campo errado, se intenta simular el campo "Opcionales"
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);
-		$this->assertRegExp('/\(\'\)/',$res->notes);
+		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
 	}
 
 	public function testCheckFieldNombreCheckerErrorBySpecialCharEuro()
@@ -111,7 +111,7 @@ class TextFileFieldNombreCheckerTest extends TestCase {
 		$field="Contacto astral  Lobo € the music";//Campo errado, se intenta simular el campo "Opcionales"
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);
-		$this->assertRegExp('/\([^a-zA-Z0-9\ \-_]\)/',$res->notes);
+		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
 	}
 
 
@@ -121,7 +121,7 @@ class TextFileFieldNombreCheckerTest extends TestCase {
 		$field="Contacto astral  Lobo “ the music";//Campo errado, se intenta simular el campo "Opcionales"
 		$res = $checker->checkFieldIntegrity($field);
 		$this->assertSame(false,$res->status);
-		$this->assertRegExp('/\([^a-zA-Z0-9\ \-_]\)/',$res->notes);
+		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
 		//$this->assertRegExp('/\(“\)/',$res->notes);
 	}
 
