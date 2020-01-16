@@ -28,4 +28,13 @@ class TextFileFieldOpcionalesCheckerTest extends TestCase {
 		$this->assertSame(false,$res->status);
 	}
 
+	public function testCheckFieldOpcionalesCheckerErrorByHyphen()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldOpcionalesChecker();
+		$field="ep|14803--";//
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/Se han dejado caracteres separadores de campo \(guiones\)/',$res->notes);
+	}
+
 }

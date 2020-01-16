@@ -25,6 +25,29 @@ class TextFileFieldCustomSinopsisChecker implements \Siba\txtvalidator\interface
         }
 
 
+        if (preg_match_all("/([&\'><“\x{00AB}\x{00BB}])/u",$field,$matches)){
+
+            $asciiCodes = "";
+            array_shift($matches);
+            foreach($matches[0] as $match){
+
+                $asciiCodes .= mb_chr (mb_ord($match))." (".mb_ord($match)."), ";
+
+            }
+            //$specialCharsMatched = implode(", ",$matches[0]);
+            //$specialCharsMatched = utf8_encode($specialCharsMatched);
+            $specialCharsMatched = " caracteres (UNICODE): ".$asciiCodes;
+            $specialCharsMatched = preg_replace("/\,\ $/","",$specialCharsMatched);
+
+            $this->return->status = false;
+            $this->return->value = 0;
+
+            $this->return->notes = "El tipo de dato registrado en el campo Custom Sinopsis contiene caracteres no permitidos, ".$specialCharsMatched;
+            return $this->return;
+
+        }
+
+
         if (preg_match("/^[^\|0-9]{5,12}\|[^\|]{3,1200}(\|\|){0,1}/",$field)){
 
             return $this->return;

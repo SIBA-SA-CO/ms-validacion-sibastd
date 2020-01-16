@@ -76,4 +76,13 @@ class TextFileFieldSinopsisCheckerTest extends TestCase {
 		$this->assertSame(true,$res->status);
 	}
 
+	public function testCheckFieldSinopsisCheckerErrorWithSpecialChars()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldSinopsisChecker();
+		$field="Un acto de compasión y arrogancia conduce a una guerra como ninguna y al origen del planeta de los simios. El equipo de efectos especiales ganador de un premio Óscar que dio vida a las películas Avatar y El señor de los anillos abre nuevos caminos creando un simio digital que realiza una interpretación dramática de una emoción y una inteligencia sin precedentes, y épicas batallas en las que descansa el destino de los hombres y de los simios»";//Programa de VH1 que nos muestra  sigue estando de moda.
+		$res = $checker->checkFieldIntegrity($field);
+		//print_r($res);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
+	}
 }

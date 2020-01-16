@@ -116,6 +116,25 @@ class TextFileFieldNombreCheckerTest extends TestCase {
 		//$this->assertRegExp('/\(“\)/',$res->notes);
 	}
 
+
+	public function testCheckFieldNombreCheckerErrorBySpecialCharLeftPointingDoubleQuotation()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
+		$field="Contacto astral Lobo the music «";//Campo errado, se intenta simular el campo "Opcionales"
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
+		//$this->assertRegExp('/\(“\)/',$res->notes);
+	}
 	
+	public function testCheckFieldNombreCheckerErrorBySpecialCharRightPointingDoubleQuotation()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
+		$field="Contacto astral Lobo the music »";//Campo errado, se intenta simular el campo "Opcionales"
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
+		//$this->assertRegExp('/\(“\)/',$res->notes);
+	}
 
 }

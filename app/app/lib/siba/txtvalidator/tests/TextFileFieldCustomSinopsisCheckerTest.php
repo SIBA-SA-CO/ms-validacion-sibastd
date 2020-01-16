@@ -41,4 +41,14 @@ class TextFileFieldCustomSinopsisCheckerTest extends TestCase {
 	}
 
 
+	public function testCheckFieldCustomSinopsisNoSpecialCharsThere()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldCustomSinopsisChecker();
+		$field="SIN_CTI|México al Día es un noticiario que brinda información oportuna, clara y veraz de los sucesos y acontecimientos que están transformando a nuestro país. Su compromiso es ofrecer al auditorio un recuento diario de los avances y logros de México y su gente, presentando secciones de información internacional, deportes, cultura y espectáculos, entre otros «.";
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/^(El tipo de dato registrado en el campo Custom Sinopsis contiene caracteres no permitidos)/',$res->notes);
+	}
+
+
 }

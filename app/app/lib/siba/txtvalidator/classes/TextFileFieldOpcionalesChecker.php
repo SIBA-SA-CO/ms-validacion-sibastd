@@ -24,6 +24,15 @@ class TextFileFieldOpcionalesChecker implements \Siba\txtvalidator\interfaces\Fi
         	return $this->return;
         }
 
+        if (preg_match("/(\-){2,10}$/",$field)){
+
+            $this->return->status = false;
+            $this->return->value = 0;
+            $this->return->notes = "Se han dejado caracteres separadores de campo (guiones)";
+            return $this->return;
+
+        }
+
         if (preg_match("/([^\|]){2,200}\|([^\|]){1,400}/",$field)){
 
             return $this->return;
@@ -32,7 +41,7 @@ class TextFileFieldOpcionalesChecker implements \Siba\txtvalidator\interfaces\Fi
 
         $this->return->status = false;
         $this->return->value = 0;
-        $this->return->note = "El tipo de dato registrado en el campo Opcionales no es valido";
+        $this->return->notes = "El tipo de dato registrado en el campo Opcionales no es valido";
         return $this->return;
 
     }

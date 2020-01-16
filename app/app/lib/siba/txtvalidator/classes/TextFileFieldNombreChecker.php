@@ -43,25 +43,26 @@ class TextFileFieldNombreChecker implements \Siba\txtvalidator\interfaces\FileDa
 
 
         //if (preg_match('/(\||;|&|\"|\'){1,100}/',$field,$matches)){
-        if (preg_match('/([\|&\"\'><“]){1,100}/',$field,$matches)){
+        if (preg_match_all('/([\|&\'><“\x{00AB}\x{00BB}])/u',$field,$matches)){
 
 
             $asciiCodes = "";
             array_shift($matches);
-            foreach($matches as $match){
+            foreach($matches[0] as $match){
 
-                $asciiCodes .= ord($match).", ";
+                //$asciiCodes .= mb_ord($match).", ";
+                $asciiCodes .= mb_chr (mb_ord($match))." (".mb_ord($match)."), ";
 
             }
-            $specialCharsMatched = implode(", ",$matches);
-            $specialCharsMatched = utf8_encode($specialCharsMatched);
-            $specialCharsMatched.= " Códigos ASCII: ".$asciiCodes;
-            $specialCharsMatched.= preg_replace("/\,\ $/","",$specialCharsMatched);
+            //$specialCharsMatched = implode(", ",$matches[0]);
+            //$specialCharsMatched = utf8_encode($specialCharsMatched);
+            $specialCharsMatched = " Códigos UNICODE: ".$asciiCodes;
+            $specialCharsMatched = preg_replace("/\,\ $/","",$specialCharsMatched);
 
             $this->return->status = false;
             $this->return->value = 0;
 
-            $this->return->notes = "El tipo de dato registrado en el campo Nombre contiene caracteres no permitidos: (".$specialCharsMatched.")";
+            $this->return->notes = "El tipo de dato registrado en el campo Nombre contiene caracteres no permitidos, ".$specialCharsMatched;
         }
 
         

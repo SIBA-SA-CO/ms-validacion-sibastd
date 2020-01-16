@@ -24,7 +24,7 @@ class TextFileFieldActoresChecker implements \Siba\txtvalidator\interfaces\FileD
         	return $this->return;
         }
 
-        if (preg_match("/([a-zA-Z0-9\ \'\"]){3,200}(\|{2,2}){1,1}/",$field)){
+        if (preg_match("/([a-zA-Z0-9\ \'\"\x{00A0}]){3,200}(\|{2,2}){1,1}/",$field)){
 
             $arrRecords = preg_split("/\|\|/",$field);
             foreach ($arrRecords as $record){
