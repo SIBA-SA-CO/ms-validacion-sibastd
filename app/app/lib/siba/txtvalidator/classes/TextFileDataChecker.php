@@ -139,19 +139,32 @@ class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataCheck
                     array_push($this->arrData[$actualDate],strtotime($horario));
                     array_push ($this->eventsTime,strtotime($horario));
                     //3. Valida correctitud de campos
-                    $resNombre = $this->nombreTest->checkFieldIntegrity($arrLineData[1]);
-                    $resSinopsis = $this->sinopsisTest->checkFieldIntegrity($arrLineData[2]);
-                    $resRating = $this->ratingTest->checkFieldIntegrity($arrLineData[3]);
-                    $resCategorizacion = $this->categoriasTest->checkFieldIntegrity($arrLineData[4]);
-                    $resPpv = $this->ppvTest->checkFieldIntegrity($arrLineData[5]);
-                    $resYear = $this->yearTest->checkFieldIntegrity($arrLineData[6]);
-                    $resPais = $this->paisTest->checkFieldIntegrity($arrLineData[7]);
-                    $resMarcadorSerie = $this->serieMarkTest->checkFieldIntegrity($arrLineData[8]);
-                    $resTemporada = $this->temporadaTest->checkFieldIntegrity($arrLineData[9]);
-                    $resCustomSinopsis = $this->sinopsisCustomTest->checkFieldIntegrity($arrLineData[10]);
-                    $resActores = $this->actoresTest->checkFieldIntegrity($arrLineData[11]);
-                    $resDirectores = $this->directoresTest->checkFieldIntegrity($arrLineData[12]);
-                    $resOpcionales = $this->opcionalesTest->checkFieldIntegrity($arrLineData[13]);
+                    try{
+                        $resNombre = $this->nombreTest->checkFieldIntegrity($arrLineData[1]);
+                        $resSinopsis = $this->sinopsisTest->checkFieldIntegrity($arrLineData[2]);
+                        $resRating = $this->ratingTest->checkFieldIntegrity($arrLineData[3]);
+                        $resCategorizacion = $this->categoriasTest->checkFieldIntegrity($arrLineData[4]);
+                        $resPpv = $this->ppvTest->checkFieldIntegrity($arrLineData[5]);
+                        $resYear = $this->yearTest->checkFieldIntegrity($arrLineData[6]);
+                        $resPais = $this->paisTest->checkFieldIntegrity($arrLineData[7]);
+                        $resMarcadorSerie = $this->serieMarkTest->checkFieldIntegrity($arrLineData[8]);
+                        $resTemporada = $this->temporadaTest->checkFieldIntegrity($arrLineData[9]);
+                        $resCustomSinopsis = $this->sinopsisCustomTest->checkFieldIntegrity($arrLineData[10]);
+                        $resActores = $this->actoresTest->checkFieldIntegrity($arrLineData[11]);
+                        $resDirectores = $this->directoresTest->checkFieldIntegrity($arrLineData[12]);
+                        $resOpcionales = $this->opcionalesTest->checkFieldIntegrity($arrLineData[13]);
+                    }
+                    catch(\Exception $e){
+
+                        $ret->status = false;
+                        $ret->value = 0;
+                        array_push($ret->notes,array(
+                            'linenumber' => ($ctrLines + 1), 
+                            'desc' => 'Error indefinido: '.$e->getMessage(),
+                            'line' => $line
+                        ));
+
+                    }
 
                     if ($resNombre->status == false){
 
