@@ -24,7 +24,7 @@ class TextFileFieldSinopsisChecker implements \Siba\txtvalidator\interfaces\File
             return $this->return;
         }
 
-        if (preg_match_all('/([\|&\'><“\x{00AB}\x{00BB}])/u',$field,$matches)){
+        if (preg_match_all('/([\|&\'><“\x{00AB}\x{00BB}\x{2028}])/u',$field,$matches)){
 
 
             //print_r($matches);

@@ -51,4 +51,14 @@ class TextFileFieldCustomSinopsisCheckerTest extends TestCase {
 	}
 
 
+	public function testCheckFieldCustomSinopsisCheckerErrorWithSpecialChars0x2028()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldCustomSinopsisChecker();
+		$field="SIN_CTI|En los próximos por completo. El ciclo de las pandemias";
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
+	}
+
+
 }

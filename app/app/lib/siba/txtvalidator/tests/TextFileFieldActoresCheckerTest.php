@@ -57,4 +57,13 @@ class TextFileFieldActoresCheckerTest extends \TestCase {
 
 	}
 
+	public function testCheckFieldActoresCheckerErrorWithSpecialChars0x2028()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldActoresChecker();
+		$field="En los próximos por completo El ciclo de las pandemias";
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/Existen caracteres no válidos en el campo actores/',$res->notes);
+	}	
+
 }

@@ -85,4 +85,23 @@ class TextFileFieldSinopsisCheckerTest extends TestCase {
 		$this->assertSame(false,$res->status);
 		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
 	}
+
+
+	public function testCheckFieldSinopsisCheckerErrorWithSpecialChars0x2028()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldSinopsisChecker();
+		$field="En los próximos por completo. El ciclo de las pandemias";
+		$res = $checker->checkFieldIntegrity($field);
+		/*
+		$arrChar = preg_split("//u",$field);
+
+		echo "\n================\n";
+		foreach($arrChar as $char){
+			echo $char." -> ".mb_ord($char)."\n";
+		};
+		echo "\n================\n";
+		*/
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
+	}
 }

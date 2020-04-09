@@ -25,7 +25,7 @@ class TextFileFieldCustomSinopsisChecker implements \Siba\txtvalidator\interface
         }
 
 
-        if (preg_match_all("/([&\'><“\x{00AB}\x{00BB}])/u",$field,$matches)){
+        if (preg_match_all("/([&\'><“\x{00AB}\x{00BB}\x{0080}-\x{009F}\x{2028}])/u",$field,$matches)){
 
             $asciiCodes = "";
             array_shift($matches);

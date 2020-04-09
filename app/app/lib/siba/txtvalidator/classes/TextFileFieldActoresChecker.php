@@ -57,6 +57,15 @@ class TextFileFieldActoresChecker implements \Siba\txtvalidator\interfaces\FileD
 
         }
 
+        if (preg_match("/[\x{00AB}\x{00BB}\x{0080}-\x{009F}\x{2028}]/u",$field)){
+
+            $this->return->status = false;
+            $this->return->value = 0;
+            $this->return->notes = "Existen caracteres no válidos en el campo actores".": ".$field;
+            return $this->return;
+
+        }
+
         if (preg_match("/[a-zA-Z0-9\ \'\"]{3,120}/",$field)){
 
             return $this->return;
