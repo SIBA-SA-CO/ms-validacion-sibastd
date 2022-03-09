@@ -54,14 +54,6 @@ class TextFileFieldCategoriasCheckerTest extends TestCase {
 		$this->assertSame(true,$res['res']);
 	}
 
-	public function testCheckFieldCategoriasCheckerGeneroValidatorForTildesOk()
-	{
-		$checker = new \Siba\txtvalidator\classes\TextFileFieldCategoriasChecker();
-		$field="SIBA_TIPO|SERIE||SIBA_BASE|épica";
-		$res = $checker->checkGenero($field);
-		$this->assertSame(true,$res['res']);
-	}
-
 	public function testCheckFieldCategoriasCheckerGeneroValidatorError()
 	{
 		$checker = new \Siba\txtvalidator\classes\TextFileFieldCategoriasChecker();
