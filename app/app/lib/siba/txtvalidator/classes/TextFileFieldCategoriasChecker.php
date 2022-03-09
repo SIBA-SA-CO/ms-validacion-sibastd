@@ -42,6 +42,7 @@ class TextFileFieldCategoriasChecker implements \Siba\txtvalidator\interfaces\Fi
                             'Entretenimiento',
                             'Entrevistas',
                             'epica',
+                            'épica',
                             'Erotico',
                             'Especial',
                             'Exploracion',
@@ -143,7 +144,7 @@ class TextFileFieldCategoriasChecker implements \Siba\txtvalidator\interfaces\Fi
         }
 
 
-        if (preg_match("/SIBA_BASE\|([^0-9áéíóúñÑÁÉÍÓÚ]{4,80})/",$field,$res)){
+        if (preg_match("/SIBA_BASE\|([^0-9\|\.\,;:<>\-]{4,80})/",$field,$res)){
 
             if (in_array($res[1],$this->categorias)){
 
