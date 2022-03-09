@@ -14,7 +14,7 @@ docker run --name ms-validacion-sibastd-db -v /Users/macuser/Documents/mysql-dat
 docker run -itd --name ms-validacion-sibastd -v /Users/macuser/Proyectos/ms-validacion-sibastd/app:/home/admin/app -p 8800:80  --link ms-validacion-sibastd-db:mysql --net std-dev2 maomuriel/centos66-php56-composer172 /bin/bash
 
 Para desarrollo local:
-docker run -itd --name ms-validacion-sibastd -v /Users/macuser/Proyectos/ms-validacion-sibastd/app:/home/admin/app -p 8800:80 --network std-dev2  --link ms-validacion-sibastd-db:mysql maomuriel/centos66-php56-composer172 /bin/bash
+docker run -itd --name ms-validacion-sibastd -v /Users/macuser/Proyectos/ms-validacion-sibastd/app:/home/admin/app -p 8800:80 --link ms-validacion-sibastd-db:mysql maomuriel/centos66-php56-composer172 /bin/bash
 
 OJO: Hay que entrar al contenedor y arrancar manualmente el servidor apache con este comando:
 
@@ -27,4 +27,4 @@ La imagen de este contenedor: https://hub.docker.com/r/phpmyadmin/phpmyadmin/
 docker run --name ms-validacion-sibastd-phpmia -d --link ms-validacion-sibastd-db:mysql -e PMA_HOST='ms-validacion-sibastd-db' -p 8890:80 phpmyadmin/phpmyadmin
 
 Para desarrollo local:
-docker run --name ms-validacion-sibastd-phpmia -d --net std-dev2 --link ms-validacion-sibastd-db:mysql -e PMA_HOST='ms-validacion-sibastd-db' -p 8890:80 phpmyadmin/phpmyadmin
+docker run --name ms-validacion-sibastd-phpmia -d --link ms-validacion-sibastd-db:mysql -e PMA_HOST='ms-validacion-sibastd-db' -p 8890:80 phpmyadmin/phpmyadmin

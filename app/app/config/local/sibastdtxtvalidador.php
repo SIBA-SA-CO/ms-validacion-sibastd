@@ -30,7 +30,8 @@ return array(
 	|--------------------------------------------------------------------------
 	| URL Endpoint for ratings Web Service
 	*/
-        'WS_RATINGS' => 'http://std-dev2/api/ratings',
+        //'WS_RATINGS' => 'http://std-dev2/api/ratings',
+        'WS_RATINGS' => 'https://apistd.siba.com.co/api/ratings',
 
     
     /*

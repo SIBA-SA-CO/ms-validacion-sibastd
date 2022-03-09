@@ -136,10 +136,12 @@ class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataCheck
                         ));
 
                     }
-                    array_push($this->arrData[$actualDate],strtotime($horario));
-                    array_push ($this->eventsTime,strtotime($horario));
                     //3. Valida correctitud de campos
                     try{
+                        array_push($this->arrData[$actualDate],strtotime($horario));
+                        array_push ($this->eventsTime,strtotime($horario));
+                    
+                    
                         $resNombre = $this->nombreTest->checkFieldIntegrity($arrLineData[1]);
                         $resSinopsis = $this->sinopsisTest->checkFieldIntegrity($arrLineData[2]);
                         $resRating = $this->ratingTest->checkFieldIntegrity($arrLineData[3]);
@@ -153,6 +155,158 @@ class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataCheck
                         $resActores = $this->actoresTest->checkFieldIntegrity($arrLineData[11]);
                         $resDirectores = $this->directoresTest->checkFieldIntegrity($arrLineData[12]);
                         $resOpcionales = $this->opcionalesTest->checkFieldIntegrity($arrLineData[13]);
+                        
+                        
+
+                        if ($resNombre->status == false){
+
+                            $ret->status = false;
+                            $ret->value = 0;
+                            array_push($ret->notes,array(
+                                'linenumber' => ($ctrLines + 1), 
+                                'desc' => 'Error en el campo Título del evento: '.$resNombre->notes,
+                                'line' => $line
+                            ));
+
+                        }
+
+                        if ($resSinopsis->status == false) {
+
+                            $ret->status = false;
+                            $ret->value = 0;
+                            array_push($ret->notes,array(
+                                'linenumber' => ($ctrLines + 1), 
+                                'desc' => 'Error en el campo Sinopsis: '.$resSinopsis->notes,
+                                'line' => $line
+                            ));
+
+                        }
+                        
+                        if ($resRating->status== false) {
+
+                            $ret->status = false;
+                            $ret->value = 0;
+                            array_push($ret->notes,array(
+                                'linenumber' => ($ctrLines + 1), 
+                                'desc' => 'Error en el campo Rating: '.$resRating->notes,
+                                'line' => $line
+                            ));
+
+                        } 
+
+                        if ($resCategorizacion->status == false){
+
+                            $ret->status = false;
+                            $ret->value = 0;
+
+                            array_push($ret->notes,array(
+                                'linenumber' => ($ctrLines + 1), 
+                                'desc' => 'Error en el campo Categorización: '.$resCategorizacion->notes,
+                                'line' => $line
+                            ));
+
+                        } 
+                        
+                        if ($resPpv->status == false){
+
+                            $ret->status = false;
+                            $ret->value = 0;
+                            array_push($ret->notes,array(
+                                'linenumber' => ($ctrLines + 1), 
+                                'desc' => 'Error en la defición de los valores PPV: '.$resPpv->notes,
+                                'line' => $line
+                            ));
+
+                        } 
+
+                        if ($resYear->status == false){
+
+                            $ret->status = false;
+                            $ret->value = 0;
+                            array_push($ret->notes,array(
+                                'linenumber' => ($ctrLines + 1), 
+                                'desc' => 'Error en la defición del campo Año: '.$resYear->notes,
+                                'line' => $line
+                            ));
+                        } 
+
+                        if ($resPais->status == false){
+
+                            $ret->status = false;
+                            $ret->value = 0;
+                            array_push($ret->notes,array(
+                                'linenumber' => ($ctrLines + 1), 
+                                'desc' => 'Error en la defición del campo (Pais): '.$resPais->notes,
+                                'line' => $line
+                            ));
+                        } 
+
+                        if ($resMarcadorSerie->status == false) {
+
+                            $ret->status = false;
+                            $ret->value = 0;
+                            array_push($ret->notes,array(
+                                'linenumber' => ($ctrLines + 1), 
+                                'desc' => 'Error en la defición del campo Marcador de serie: '.$resMarcadorSerie->notes,
+                                'line' => $line
+                            ));
+                        }
+                                
+                        if ($resTemporada->status == false) {
+
+                            $ret->status = false;
+                            $ret->value = 0;
+                            array_push($ret->notes,array(
+                                'linenumber' => ($ctrLines + 1), 
+                                'desc' => 'Error en la defición del campo Temporada: '.$resTemporada->notes,
+                                'line' => $line
+                            ));
+                        } 
+
+                        if ($resCustomSinopsis->status == false) {
+
+                            $ret->status = false;
+                            $ret->value = 0;
+                            array_push($ret->notes,array(
+                                'linenumber' => ($ctrLines + 1), 
+                                'desc' => 'Error en la defición del campo Custom Sinopsis: '.$resCustomSinopsis->notes,
+                                'line' => $line
+                            ));
+
+                        }
+                    
+                        if ($resActores->status == false){
+
+                            $ret->status = false;
+                            $ret->value = 0;
+                            array_push($ret->notes,array(
+                                'linenumber' => ($ctrLines + 1), 
+                                'desc' => 'Error en la defición del campo Actores: '.$resActores->notes,
+                                'line' => $line
+                            ));
+                        } 
+
+                        if ($resDirectores->status == false) {
+
+                            $ret->status = false;
+                            $ret->value = 0;
+                            array_push($ret->notes,array(
+                                'linenumber' => ($ctrLines + 1), 
+                                'desc' => 'Error en la defición del campo Directores: '.$resDirectores->notes,
+                                'line' => $line
+                            ));
+                        }
+                                
+                        if ($resOpcionales->status == false) {
+
+                            $ret->status = false;
+                            $ret->value = 0;
+                            array_push($ret->notes,array(
+                                'linenumber' => ($ctrLines + 1), 
+                                'desc' => 'Error en la defición del campo Opcionales: '.$resOpcionales->notes,
+                                'line' => $line
+                            ));
+                        }
                     }
                     catch(\Exception $e){
 
@@ -164,156 +318,6 @@ class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataCheck
                             'line' => $line
                         ));
 
-                    }
-
-                    if ($resNombre->status == false){
-
-                        $ret->status = false;
-                        $ret->value = 0;
-                        array_push($ret->notes,array(
-                            'linenumber' => ($ctrLines + 1), 
-                            'desc' => 'Error en el campo Título del evento: '.$resNombre->notes,
-                            'line' => $line
-                        ));
-
-                    }
-
-                    if ($resSinopsis->status == false) {
-
-                        $ret->status = false;
-                        $ret->value = 0;
-                        array_push($ret->notes,array(
-                            'linenumber' => ($ctrLines + 1), 
-                            'desc' => 'Error en el campo Sinopsis: '.$resSinopsis->notes,
-                            'line' => $line
-                        ));
-
-                    }
-                    
-                    if ($resRating->status== false) {
-
-                        $ret->status = false;
-                        $ret->value = 0;
-                        array_push($ret->notes,array(
-                            'linenumber' => ($ctrLines + 1), 
-                            'desc' => 'Error en el campo Rating: '.$resRating->notes,
-                            'line' => $line
-                        ));
-
-                    } 
-
-                    if ($resCategorizacion->status == false){
-
-                        $ret->status = false;
-                        $ret->value = 0;
-
-                        array_push($ret->notes,array(
-                            'linenumber' => ($ctrLines + 1), 
-                            'desc' => 'Error en el campo Categorización: '.$resCategorizacion->notes,
-                            'line' => $line
-                        ));
-
-                    } 
-                    
-                    if ($resPpv->status == false){
-
-                        $ret->status = false;
-                        $ret->value = 0;
-                        array_push($ret->notes,array(
-                            'linenumber' => ($ctrLines + 1), 
-                            'desc' => 'Error en la defición de los valores PPV: '.$resPpv->notes,
-                            'line' => $line
-                        ));
-
-                    } 
-
-                    if ($resYear->status == false){
-
-                        $ret->status = false;
-                        $ret->value = 0;
-                        array_push($ret->notes,array(
-                            'linenumber' => ($ctrLines + 1), 
-                            'desc' => 'Error en la defición del campo Año: '.$resYear->notes,
-                            'line' => $line
-                        ));
-                    } 
-
-                    if ($resPais->status == false){
-
-                        $ret->status = false;
-                        $ret->value = 0;
-                        array_push($ret->notes,array(
-                            'linenumber' => ($ctrLines + 1), 
-                            'desc' => 'Error en la defición del campo (Pais): '.$resPais->notes,
-                            'line' => $line
-                        ));
-                    } 
-
-                    if ($resMarcadorSerie->status == false) {
-
-                        $ret->status = false;
-                        $ret->value = 0;
-                        array_push($ret->notes,array(
-                            'linenumber' => ($ctrLines + 1), 
-                            'desc' => 'Error en la defición del campo Marcador de serie: '.$resMarcadorSerie->notes,
-                            'line' => $line
-                        ));
-                    }
-                            
-                    if ($resTemporada->status == false) {
-
-                        $ret->status = false;
-                        $ret->value = 0;
-                        array_push($ret->notes,array(
-                            'linenumber' => ($ctrLines + 1), 
-                            'desc' => 'Error en la defición del campo Temporada: '.$resTemporada->notes,
-                            'line' => $line
-                        ));
-                    } 
-
-                    if ($resCustomSinopsis->status == false) {
-
-                        $ret->status = false;
-                        $ret->value = 0;
-                        array_push($ret->notes,array(
-                            'linenumber' => ($ctrLines + 1), 
-                            'desc' => 'Error en la defición del campo Custom Sinopsis: '.$resCustomSinopsis->notes,
-                            'line' => $line
-                        ));
-
-                    }
-                
-                    if ($resActores->status == false){
-
-                        $ret->status = false;
-                        $ret->value = 0;
-                        array_push($ret->notes,array(
-                            'linenumber' => ($ctrLines + 1), 
-                            'desc' => 'Error en la defición del campo Actores: '.$resActores->notes,
-                            'line' => $line
-                        ));
-                    } 
-
-                    if ($resDirectores->status == false) {
-
-                        $ret->status = false;
-                        $ret->value = 0;
-                        array_push($ret->notes,array(
-                            'linenumber' => ($ctrLines + 1), 
-                            'desc' => 'Error en la defición del campo Directores: '.$resDirectores->notes,
-                            'line' => $line
-                        ));
-                    }
-                            
-                    if ($resOpcionales->status == false) {
-
-                        $ret->status = false;
-                        $ret->value = 0;
-                        array_push($ret->notes,array(
-                            'linenumber' => ($ctrLines + 1), 
-                            'desc' => 'Error en la defición del campo Opcionales: '.$resOpcionales->notes,
-                            'line' => $line
-                        ));
                     }
                 }
                 $ctrLines++;
