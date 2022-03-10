@@ -60,5 +60,14 @@ class TextFileFieldCustomSinopsisCheckerTest extends TestCase {
 		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
 	}
 
+	public function testCheckFieldCustomSinopsisCheckerErrorWithSpecialChars0x0002()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldCustomSinopsisChecker();
+		$field="SIN_CTI|son más protagonistas que nunca en un exigente certamenes";
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
+	}
+
 
 }
