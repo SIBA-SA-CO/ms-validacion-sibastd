@@ -146,4 +146,13 @@ class TextFileFieldNombreCheckerTest extends TestCase {
 		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
 	}
 
+	public function testCheckFieldNombreCheckerErrorWithSpecialChars0x0002()
+	{
+		$checker = new \Siba\txtvalidator\classes\TextFileFieldNombreChecker();
+		$field="protagonistas";
+		$res = $checker->checkFieldIntegrity($field);
+		$this->assertSame(false,$res->status);
+		$this->assertRegExp('/caracteres no permitidos/',$res->notes);
+	}
+
 }
