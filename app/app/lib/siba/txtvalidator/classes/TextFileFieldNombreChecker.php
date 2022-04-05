@@ -43,7 +43,7 @@ class TextFileFieldNombreChecker implements \Siba\txtvalidator\interfaces\FileDa
 
 
         //if (preg_match('/(\||;|&|\"|\'){1,100}/',$field,$matches)){
-        if (preg_match_all('/([\|&\'><“\x{00AB}\x{00BB}\x{0080}-\x{009F}\x{2028}])/u',$field,$matches)){
+        if (preg_match_all('/([\|&\'><“\x{00AB}\x{00BB}\x{0080}-\x{009F}\x{2028}\x{0002}])/u',$field,$matches)){
 
 
             $asciiCodes = "";
