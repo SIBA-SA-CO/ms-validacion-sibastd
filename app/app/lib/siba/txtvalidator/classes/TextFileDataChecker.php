@@ -7,6 +7,8 @@ namespace Siba\txtvalidator\classes;
  * @author @maomuriel
  * mauricio.muriel@calitek.net
  */
+use \Siba\txtvalidator\classes\StringValidator;
+
 class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataChecker {
     //put your code here
     private $arrData = array();
@@ -54,6 +56,7 @@ class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataCheck
     public function checkDataIntegrity($filePath) {
         
         //======================================================================
+        $validator = new StringValidator();
         $ret = new \Misc\Response();
         $ret->notes = array();
 
@@ -94,6 +97,24 @@ class TextFileDataChecker implements \Siba\txtvalidator\interfaces\FileDataCheck
 
                     $arrLineData = preg_split("/\-\-\-/",$line);
                     $horaLine = $lineObj->getLineTime();
+
+                    $keysToValidate = [3, 4, 5, 10, 11, 12, 13];
+                    foreach ($keysToValidate as $key) {
+                        $inputString = isset($arrLineData[$key]) ? $arrLineData[$key] : '';
+                        $result = $validator->validatePipeSequence($inputString);
+                        if (!$result['success']) {
+
+                            $errorMessage = $result['error'];
+                            $ret->status = false;
+                            $ret->value = 0;
+                            array_push($ret->notes,array(
+                                'linenumber' => ($ctrLines + 1), 
+                                'desc' => $errorMessage,
+                                'line' => $line
+                            ));
+                        }
+                    }
+                    
                     //1. Primera revisión es de formato adecuado de hora
                     if ($horaLine == false){
 
